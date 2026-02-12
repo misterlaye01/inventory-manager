@@ -27,7 +27,7 @@ CREATE TABLE `categories` (
   `category_name` varchar(32) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `category_name` (`category_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +36,7 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (2,'Informatique'),(1,'Meuble'),(3,'Mobilier');
+INSERT INTO `categories` VALUES (1,'Hyundai'),(5,'Toyota');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -49,14 +49,14 @@ DROP TABLE IF EXISTS `history`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `history` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `quantity` int DEFAULT NULL,
-  `type` varchar(10) DEFAULT NULL,
-  `date` datetime DEFAULT NULL,
+  `quantity` int NOT NULL,
+  `type` varchar(10) NOT NULL,
+  `date` datetime NOT NULL,
   `product_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_products_history` (`product_id`),
   CONSTRAINT `fk_products_history` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +65,7 @@ CREATE TABLE `history` (
 
 LOCK TABLES `history` WRITE;
 /*!40000 ALTER TABLE `history` DISABLE KEYS */;
-INSERT INTO `history` VALUES (1,20,'ENTRÉE','2026-02-09 23:42:24',1),(2,10,'ENTRÉE','2026-02-09 23:42:37',2),(3,5,'SORTIE','2026-02-09 23:44:00',1),(4,40,'ENTRÉE','2026-02-10 12:05:32',3),(5,35,'ENTRÉE','2026-02-10 12:05:53',2),(6,20,'ENTRÉE','2026-02-10 12:06:38',1),(7,5,'SORTIE','2026-02-10 12:06:51',1);
+INSERT INTO `history` VALUES (1,40,'ENTRÉE','2026-02-12 00:24:21',1),(2,10,'SORTIE','2026-02-12 12:34:19',1),(3,25,'ENTRÉE','2026-02-12 12:38:12',2);
 /*!40000 ALTER TABLE `history` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,8 +93,36 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,'Ordinateur',30,2),(2,'Banc',45,1),(3,'Armoire',40,3);
+INSERT INTO `products` VALUES (1,'Sonata',30,1),(2,'Elantra',25,1);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(64) NOT NULL,
+  `email` varchar(128) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` enum('admin','gestionnaire','observateur') NOT NULL DEFAULT 'observateur',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -106,4 +134,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-02-11 13:01:16
+-- Dump completed on 2026-02-12 12:52:39
